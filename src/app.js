@@ -1,9 +1,6 @@
 import express from "express";
 import db from "./config/dbConnect.js";
 import routes from "./routers/index.js";
-import cors from 'cors'
-
-app.use(cors());
 
 
 const app = express();
