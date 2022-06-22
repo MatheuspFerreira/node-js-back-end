@@ -5,6 +5,9 @@ import routes from "./routers/index.js";
 
 const app = express();
 app.use(express.json())
+
+
+
 routes(app);
 
 db.on ("error", console.log.bind(console,'Erro de conexão'))
