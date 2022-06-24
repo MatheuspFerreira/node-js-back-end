@@ -63,7 +63,7 @@ userController.userLogin = (req,res) => {
         }else if(login.name == data.name && login.password == data.password ){
 
             console.log ("login efetuado com sucesso !!");
-            res.send('login efetuado com sucesso')
+            res.send(login);
         }
 
     })
