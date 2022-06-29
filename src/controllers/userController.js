@@ -15,7 +15,7 @@ userController.createNewUser = (req,res) => {
         res.send('deu erro')
 
      
-       }else if (null == data) {
+       }else if (!data) {
             newUser = new user(req.body)
             newUser.save((error) => {
 
@@ -56,7 +56,7 @@ userController.userLogin = (req,res) => {
             console.log('Deu erro no login');
             res.status(500).send('Erro no login !!');
 
-        }else if (data == null){
+        }else if (!data){
             console.log('Usuário não cadastrado !');
             res.send('Usuário não cadastrado !');
 
@@ -93,20 +93,39 @@ userController.userUpdate = (req,res) => {
     
     const updateUser = req.body;
 
-    user.findOneAndUpdate({name:updateUser.name, email:updateUser.email},{$set: updateUser},(error) => {
-        if(!error) {
-            res.status(200).send("Seus dados foram atualizados com sucesso !");
-            console.log("Seus dados foram atualizados com sucesso !");
+    user.findOneAndUpdate({name:updateUser.name, email:updateUser.email},{password: updateUser.password},(error,data) => {
 
-        }else {
-            res.status(500).send(`${error.mensage}: Erro na atualização !!`);
-            console.log(`${error.mensage}: Erro na atualização !!`)
+        console.log(data)
+        
+        if (!data){
 
+            res.send("Usuário ou e-mail incorreto !")
+
+
+        }else if((data.name == updateUser.name && data.email == updateUser.email)){
+            
+            if(!error) {
+                res.status(200).send("Seus dados foram atualizados com sucesso !");
+                console.log("Seus dados foram atualizados com sucesso !");
+                console.log(data)
+    
+            }else {
+                res.status(500).send(`${error.mensage}: Erro na atualização !!`);
+                console.log(`${error.mensage}: Erro na atualização !!`)
+
+                
+    
+            }
+            
         }
+        
+        
+        
+        
     });
 
 
 }
 
 
-export default userController;
+export default userController; 

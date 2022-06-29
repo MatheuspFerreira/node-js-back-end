@@ -12,9 +12,9 @@ NewLetterController.create = (req,res) => {
     
     
 
-    newLetters.findOne({email: letterNew.email},(error, verficaemail) => {
+    newLetters.findOne({email: letterNew.email},(error, searchEmail) => {
         
-        console.log(verficaemail)
+        console.log(searchEmail)
 
         let letterNew = req.body;
         
@@ -22,14 +22,19 @@ NewLetterController.create = (req,res) => {
         if(error) {
             console.log('deu erro')
 
-        }else if (null == verficaemail){
+        }else if (!searchEmail){
+
             console.log(`${letterNew.email}`)
+
             letterNew = new newLetters(req.body)
             letterNew.save((err) => {
 
                 if(err) {
+
                     res.status(500).send(`${err.message}- Deu erro no cadastro`)
+
                 }else{
+
                     res.send(letterNew)
                     console.log('Cadastrado com Sucesso')
                 }
@@ -38,7 +43,7 @@ NewLetterController.create = (req,res) => {
             return;
 
 
-        }else if ((letterNew.email == verficaemail.email)) {
+        }else if ((letterNew.email == searchEmail.email)) {
 
             console.log('usuário já cadastrado')
             res.send({resposta: 'Usuário já cadastrado'})
