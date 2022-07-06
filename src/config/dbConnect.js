@@ -1,15 +1,38 @@
-import mongoose from "mongoose";
-
-const password = 1818
-
-mongoose.connect(`mongodb+srv://wtera:${password}@ecommercetera.fkqdk.mongodb.net/projeto-tera`);
-
-const db = mongoose.connection;
+;
+const mongoose = require('mongoose');
 
 
+const connect =  async () => {
+
+    try {
+
+        await mongoose.connect(process.env.MONGODB_URI,{
+
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+
+        })
+
+        console.log("Banco conectado com sucesso !")
+        
+    } catch (error) {
+
+        console.error("Erro:",error.message)
+        
+    }
+}
 
 
 
 
 
-export default db;
+
+
+
+
+
+
+
+module.exports ={  connect
+
+};

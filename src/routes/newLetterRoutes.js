@@ -1,5 +1,6 @@
-import express from 'express';
-import NewLetterController from '../controllers/newLetterController.js';
+
+const express = require('express');
+const NewLetterController = require('../controllers/newLetterController');
 
 const router = express.Router();
 
@@ -7,5 +8,4 @@ router
     .post("/newletter", NewLetterController.create);
 
 
-    export default router;
-
+    module.exports = router;

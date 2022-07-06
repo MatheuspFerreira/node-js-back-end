@@ -1,4 +1,6 @@
-import user from '../models/User.js'
+
+
+const  user = require ('../models/User.js');
 
 
 const userController ={};
@@ -128,4 +130,4 @@ userController.userUpdate = (req,res) => {
 }
 
 
-export default userController; 
+module.exports = userController; 

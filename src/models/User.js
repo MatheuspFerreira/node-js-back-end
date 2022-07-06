@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose =require ("mongoose");
 
 const userSchema = new mongoose.Schema ({
     name:{type: String, required:true},
@@ -10,4 +10,4 @@ const userSchema = new mongoose.Schema ({
 
 const user = mongoose.model('users', userSchema);
 
-export default user;
+module.exports = user;

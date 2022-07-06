@@ -1,25 +1,30 @@
-import express from "express";
-import db from "./config/dbConnect.js";
-import routes from "./routes/index.js";
-import cors from "cors"
 
-
+const express = require("express");
 const app = express();
+const cors = require("cors")
+require ("dotenv-safe").config();
+
 app.use(express.json())
 app.use(cors())
 
 
+const db = require("./config/dbConnect");
 
-routes(app);
+db.connect();
 
-db.on ("error", console.log.bind(console,'Erro de conexão'))
-db.once('open', () => {
 
-    console.log("Conexão com o banco feita com sucesso !!")
 
-})
+const userRoutes = require("./routes/userRoutes");
+app.use("/user", userRoutes);
+
+const newLetterRoutes = require("./routes/newLetterRoutes");
+app.use("/newletter", newLetterRoutes);
+
+const productsRoutes = require("./routes/productsRoutes");
+app.use("/products", productsRoutes);
+
 
 
     
 
-export default app ;
+module.exports = app;

@@ -1,6 +1,5 @@
-import newLetters from "../models/Newletter.js";
 
-
+const newLetters = require("../models/Newletter")
 
 
 
@@ -55,4 +54,4 @@ NewLetterController.create = (req,res) => {
 }
 
 
-export default NewLetterController;
+module.exports = NewLetterController;

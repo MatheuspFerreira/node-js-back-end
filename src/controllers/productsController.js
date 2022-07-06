@@ -1,11 +1,10 @@
-import { application, json, request } from "express";
-import productsData from "../models/Products.js";
+
+const  productsData = require ("../models/Products");
 
 const productsController = {};
 
     productsController.data = (req,res) => {
-        res.header('Access-Control-Allow-Origin', "*");
-        res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+       
         productsData.find((error,data) => {
 
 
@@ -29,4 +28,4 @@ const productsController = {};
 
 }
 
-export default productsController;
+module.exports =  productsController;

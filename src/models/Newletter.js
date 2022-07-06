@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+
+const mongoose = require('mongoose');
 
 const newLetterSchema = new mongoose.Schema ({
 
@@ -12,4 +13,4 @@ const newLetterSchema = new mongoose.Schema ({
 
 const newLetters = mongoose.model('newletters', newLetterSchema);
 
-export default newLetters;
+module.exports = newLetters;
