@@ -6,10 +6,11 @@ const router = express.Router();
 
 router
 
-    .post('/', userController.createNewUser)
-    .get('/', userController.userLogin)
-    .put('/',userController.userUpdate)
-    .delete('/',userController.userDelete)
+    .get('/all',userController.getAll)
+    .post('/newuser', userController.createNewUser)
+    .post('/login', userController.userLogin)
+    .put('/userupdate',userController.userUpdate)
+    .delete('/delete',userController.userDelete)
 
 
 

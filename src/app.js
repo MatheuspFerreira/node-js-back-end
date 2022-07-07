@@ -7,11 +7,8 @@ require ("dotenv-safe").config();
 app.use(express.json())
 app.use(cors())
 
-
 const db = require("./config/dbConnect");
-
 db.connect();
-
 
 
 const userRoutes = require("./routes/userRoutes");

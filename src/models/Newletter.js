@@ -3,11 +3,20 @@ const mongoose = require('mongoose');
 
 const newLetterSchema = new mongoose.Schema ({
 
-    
+    id: {
+        type:String
 
-    id: {type:String},
-    name: {type:String, required:true},
-    email: {type:String, required: true}
+    },
+    name: {
+        type:String, 
+        required:true
+
+    },
+    email: {
+        type:String, 
+        required: true
+        
+    }
 
 })
 

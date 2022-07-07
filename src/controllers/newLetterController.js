@@ -3,14 +3,29 @@ const newLetters = require("../models/Newletter")
 
 
 
-const NewLetterController = {}
+const newLetterController = {}
 
-NewLetterController.create = (req,res) => {
+newLetterController.getAll = (req,res) => {
+
+    newLetters.find((error,data) => {
+
+        if(error) {
+
+            console.log(error.message);
+            res.status(500).send(error.message);
+
+        }else {
+
+            res.status(200).send(data);
+        }
+
+    });
+}
+
+newLetterController.create = (req,res) => {
 
     let letterNew = req.body
     
-    
-
     newLetters.findOne({email: letterNew.email},(error, searchEmail) => {
         
         console.log(searchEmail)
@@ -19,11 +34,12 @@ NewLetterController.create = (req,res) => {
         
        
         if(error) {
-            console.log('deu erro')
 
+            console.log('deu erro')
+            
         }else if (!searchEmail){
 
-            console.log(`${letterNew.email}`)
+            console.log(letterNew.email)
 
             letterNew = new newLetters(req.body)
             letterNew.save((err) => {
@@ -34,8 +50,9 @@ NewLetterController.create = (req,res) => {
 
                 }else{
 
-                    res.send(letterNew)
+                    res.status(201).send(letterNew)
                     console.log('Cadastrado com Sucesso')
+                    
                 }
             })
 
@@ -47,11 +64,10 @@ NewLetterController.create = (req,res) => {
             console.log('usuário já cadastrado')
             res.send({resposta: 'Usuário já cadastrado'})
            
-            
         } 
         
     } )  
 }
 
 
-module.exports = NewLetterController;
+module.exports = newLetterController;

@@ -1,9 +1,24 @@
 
-
 const  user = require ('../models/User.js');
 
-
 const userController ={};
+
+
+userController.getAll = (req,res) => {
+     
+    user.find((error,data) => {
+        
+        if(error) {
+            console.log('Deu erro',error.message)
+            res.status(500).send(error.message)
+        }else {
+
+            res.status(200).send(data);
+
+        }
+    });
+
+};
 
 userController.createNewUser = (req,res) => {
     
@@ -14,7 +29,7 @@ userController.createNewUser = (req,res) => {
        if (error) {
 
         console.log('deu erro')
-        res.send('deu erro')
+        res.status(500).send('deu erro')
 
      
        }else if (!data) {
@@ -39,7 +54,7 @@ userController.createNewUser = (req,res) => {
             console.log(newUser.cpf,data.cpf)
 
             console.log('usuário já cadastrado')
-            res.send("usuário já cadastrado")
+            res.status(200).send("usuário já cadastrado")
            
             
         } 
@@ -60,12 +75,12 @@ userController.userLogin = (req,res) => {
 
         }else if (!data){
             console.log('Usuário não cadastrado !');
-            res.send('Usuário não cadastrado !');
+            res.status(200).send('Usuário não cadastrado !');
 
         }else if(login.name == data.name && login.password == data.password ){
 
             console.log ("login efetuado com sucesso !!");
-            res.send(login);
+            res.status(200).send(login);
         }
 
     })
@@ -101,7 +116,7 @@ userController.userUpdate = (req,res) => {
         
         if (!data){
 
-            res.send("Usuário ou e-mail incorreto !")
+            res.status(200).send("Usuário ou e-mail incorreto !");
 
 
         }else if((data.name == updateUser.name && data.email == updateUser.email)){

@@ -16,15 +16,9 @@ const productsController = {};
             
             res.send(data)
             
-            
         }
 
     })
-
-    
-    
-
-
 
 }
 

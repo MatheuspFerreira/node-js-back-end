@@ -6,10 +6,7 @@ const router = express.Router();
 
 router
 
- .get('/products', productsController.data)
+    .get('/products', productsController.data)
 
-
-
- 
     
- module.exports = router;
+    module.exports = router;
