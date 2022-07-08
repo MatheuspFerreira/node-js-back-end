@@ -3,7 +3,7 @@ const  productsData = require ("../models/Products");
 
 const productsController = {};
 
-    productsController.data = (req,res) => {
+    productsController.getAll = (req,res) => {
        
         productsData.find((error,data) => {
 
