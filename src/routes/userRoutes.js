@@ -1,14 +1,15 @@
 
 const  userController = require ('../controllers/userController.js')
-const express = require('express');
+const  authController = require ('../controllers/authController.js')
 
+const express = require('express');
 const router = express.Router();
 
 router
 
     .get('/all',userController.getAll)
-    .post('/newuser', userController.createNewUser)
-    .post('/login', userController.userLogin)
+    .post('/create', userController.createNewUser)
+    .post('/login', authController.userLogin)
     .put('/userupdate',userController.userUpdate)
     .delete('/delete',userController.userDelete)
 

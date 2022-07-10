@@ -3,10 +3,7 @@ const mongoose = require('mongoose');
 
 const newLetterSchema = new mongoose.Schema ({
 
-    id: {
-        type:String
-
-    },
+    id: mongoose.Schema.Types.ObjectId,
     name: {
         type:String, 
         required:true
@@ -16,6 +13,11 @@ const newLetterSchema = new mongoose.Schema ({
         type:String, 
         required: true
         
+    },
+    createdAt: {
+        type: Date,
+        default: new Date()
+
     }
 
 })

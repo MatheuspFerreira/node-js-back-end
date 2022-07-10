@@ -1,22 +1,44 @@
 
 const  user = require ('../models/User.js');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const SECRET = process.env.SECRET; 
 
 const userController ={};
 
 
 userController.getAll = (req,res) => {
-     
-    user.find((error,data) => {
-        
-        if(error) {
-            console.log('Deu erro',error.message)
-            res.status(500).send(error.message)
-        }else {
 
-            res.status(200).send(data);
+    
+    const authHeader = req.get('authorization')
+    console.log(authHeader)
+    const token = authHeader.split(' ')[1];
+
+    if(!token) {
+        return res.status(401).send("Erro no Header");
+    };
+
+    jwt.verify(token, SECRET, (err) => {
+        if(err) {
+            return res.status(401).send("Não autorizado");
+
+        }else {
+            user.find((error,data) => {
+        
+                if(error) {
+                    console.log('Deu erro',error.message)
+                    res.status(500).send(error.message)
+                }else {
+        
+                    res.status(200).send(data);
+        
+                }
+            });
 
         }
     });
+     
+    
 
 };
 
@@ -28,12 +50,16 @@ userController.createNewUser = (req,res) => {
 
        if (error) {
 
-        console.log('deu erro')
-        res.status(500).send('deu erro')
+        console.log('deu erro');
+        res.status(500).send('deu erro');
 
      
        }else if (!data) {
-            newUser = new user(req.body)
+
+            const hashedPassowrd = bcrypt.hashSync(newUser.password,10);
+            newUser.password = hashedPassowrd;
+        
+            newUser = new user(req.body);
             newUser.save((error) => {
 
             if(error) {
@@ -44,47 +70,23 @@ userController.createNewUser = (req,res) => {
 
                 res.status(201).send(`Usuário cadastrado com sucesso ${newUser}`)
             }
-            })
+            });
 
             
 
 
         }else if ((newUser.cpf == data.cpf && newUser.email == data.email)) {
 
-            console.log(newUser.cpf,data.cpf)
+            console.log(newUser.cpf,data.cpf);
 
-            console.log('usuário já cadastrado')
-            res.status(200).send("usuário já cadastrado")
+            console.log('usuário já cadastrado');
+            res.status(200).send("usuário já cadastrado");
            
             
         } 
     })
 }
 
-userController.userLogin = (req,res) => {
-    
-    let login = req.body;
-
-    user.findOne({name:login.name,password:login.password},(error,data) => {
-        console.log(data)
-        
-        if(error) {
-
-            console.log('Deu erro no login');
-            res.status(500).send('Erro no login !!');
-
-        }else if (!data){
-            console.log('Usuário não cadastrado !');
-            res.status(200).send('Usuário não cadastrado !');
-
-        }else if(login.name == data.name && login.password == data.password ){
-
-            console.log ("login efetuado com sucesso !!");
-            res.status(200).send(login);
-        }
-
-    })
-}
 
 userController.userDelete = (req,res) => {
     

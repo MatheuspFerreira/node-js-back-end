@@ -1,10 +1,7 @@
 const mongoose =require ("mongoose");
 
 const userSchema = new mongoose.Schema ({
-    id:{
-        type:String
-
-    },
+    id: mongoose.SchemaTypes.ObjectId,
     name:{
         type: String, 
         required:true
@@ -24,6 +21,11 @@ const userSchema = new mongoose.Schema ({
         type:String,
         required:true
         
+    },
+    createdAt: {
+        type: Date,
+        default: new Date()
+
     }
 })
 
