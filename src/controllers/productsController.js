@@ -1,5 +1,5 @@
 
-const  productsData = require ("../models/Products");
+const  productsData = require ("../models/ProductsSchema");
 
 const productsController = {};
 

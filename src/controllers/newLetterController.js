@@ -1,5 +1,5 @@
 
-const newLetters = require("../models/Newletter")
+const newLetters = require("../models/NewletterSchema")
 
 
 
@@ -25,19 +25,16 @@ newLetterController.getAll = (req,res) => {
 newLetterController.create = (req,res) => {
 
     let letterNew = req.body
+    console.log(letterNew);
     
-    newLetters.findOne({email: letterNew.email},(error, searchEmail) => {
+    newLetters.findOne({email: letterNew.email},(error, data) => {
         
-        console.log(searchEmail)
-
-        let letterNew = req.body;
-        
+        console.log(data)
        
         if(error) {
-
             console.log('deu erro')
             
-        }else if (!searchEmail){
+        }else if (!data){
 
             console.log(letterNew.email)
 
@@ -45,21 +42,16 @@ newLetterController.create = (req,res) => {
             letterNew.save((err) => {
 
                 if(err) {
-
                     res.status(500).send(`${err.message}- Deu erro no cadastro`)
 
                 }else{
-
                     res.status(201).send(letterNew)
                     console.log('Cadastrado com Sucesso')
                     
                 }
             })
 
-            return;
-
-
-        }else if ((letterNew.email == searchEmail.email)) {
+        }else if ((letterNew.email == data.email)) {
 
             console.log('usuário já cadastrado')
             res.send({resposta: 'Usuário já cadastrado'})

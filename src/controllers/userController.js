@@ -1,5 +1,5 @@
 
-const  user = require ('../models/User.js');
+const  user = require ('../models/UserSchema.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const SECRET = process.env.SECRET; 
@@ -11,33 +11,41 @@ userController.getAll = (req,res) => {
 
     
     const authHeader = req.get('authorization')
-    console.log(authHeader)
-    const token = authHeader.split(' ')[1];
+    if(!authHeader) {
 
-    if(!token) {
         return res.status(401).send("Erro no Header");
-    };
-
-    jwt.verify(token, SECRET, (err) => {
-        if(err) {
-            return res.status(401).send("Não autorizado");
-
-        }else {
-            user.find((error,data) => {
         
-                if(error) {
-                    console.log('Deu erro',error.message)
-                    res.status(500).send(error.message)
-                }else {
-        
-                    res.status(200).send(data);
-        
-                }
-            });
+    }else {
+        const token = authHeader.split(' ')[1];
 
-        }
-    });
-     
+        jwt.verify(token, SECRET, (err) => {
+            if(err) {
+                return res.status(401).send("Não autorizado");
+    
+            }else {
+                user.find((error,data) => {
+            
+                    if(error) {
+                        console.log('Deu erro',error.message)
+                        res.status(500).send(error.message)
+                    }else {
+            
+                        res.status(200).send(data);
+            
+                    }
+                });
+    
+            }
+        });
+         
+
+    }
+
+    
+    
+
+
+    
     
 
 };
