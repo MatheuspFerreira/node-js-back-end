@@ -4,11 +4,7 @@ const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema ({
 
-    _id:{
-        type: String, 
-        require:true
-
-    },
+    _id: mongoose.Schema.Types.ObjectId,
     name:{
         type: String,
         require:true
@@ -53,10 +49,14 @@ const productSchema = new mongoose.Schema ({
         type: String, 
         require:true
 
+    },
+    createdAt: {
+        type: Date,
+        default: new Date()
+
     }
-
-
 })
+
 
 const productsData = mongoose.model ('products',productSchema);
 
