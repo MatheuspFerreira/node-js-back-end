@@ -37,7 +37,9 @@ authController.userLogin = (req, res) => {
 
             res.status(200).send({
               message:"Login autorizado",
-              token  
+              token,
+              name:data.name,
+              email:data.email 
             })
         }
 
