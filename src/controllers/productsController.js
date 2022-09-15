@@ -33,19 +33,37 @@ const productsController = {};
             console.log(data)
             console.log(searchProduct)
 
-
-            if(error) {
-
-                res.status(500).send ('Erro Data')
-
-            }else if (!data) {
-
-                res.status(200).send({mensage:"Produto não encontrado"})
-
-            }else {
+            if(data){
                 res.status(200).send(data)
+            }else {
+                res.status(400).send({error:true})
 
-            }
+            };
+
+
+            
+        })
+
+
+    };
+
+    productsController.getProductById = (req, res) => {
+
+        const idProduct = req.params.id
+
+        console.log(idProduct)
+        productsData.findOne({ name:idProduct }, (error, data) =>{
+
+            console.log(data)
+            console.log(idProduct)
+            if(data) {
+                res.status(200).send(data) 
+            }else {
+                res.status(400).send({error:true}) 
+
+            };
+
+            
         })
 
 

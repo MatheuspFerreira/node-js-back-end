@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const newLetterSchema = new mongoose.Schema ({
 
-    _id: mongoose.Schema.Types.ObjectId,
+    id: mongoose.Schema.Types.ObjectId,
     name: {
         type:String, 
         required:true

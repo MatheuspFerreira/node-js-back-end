@@ -25,24 +25,30 @@ newLetterController.getAll = (req,res) => {
 newLetterController.create = (req,res) => {
 
     let letterNew = req.body
-    console.log(letterNew);
+    
     
     newLetters.findOne({email: letterNew.email},(error, data) => {
         
-        console.log(data)
+       
        
         if(error) {
             console.log('deu erro')
             
         }else if (!data){
 
-            console.log(letterNew.email)
+           
 
             letterNew = new newLetters(req.body)
             letterNew.save((err) => {
 
                 if(err) {
-                    res.status(500).send(`${err.message}- Deu erro no cadastro`)
+                    res.status(500).send(
+                        {
+                            error:true, 
+                            message:`${err.message}- Deu erro no cadastro`
+
+                        }
+                    );
 
                 }else{
                     res.status(201).send(letterNew)
@@ -54,7 +60,13 @@ newLetterController.create = (req,res) => {
         }else if ((letterNew.email == data.email)) {
 
             console.log('usuário já cadastrado')
-            res.send({resposta: 'Usuário já cadastrado'})
+            res.send(
+                {
+                    error:true,
+                    message: 'Usuário já cadastrado'
+
+                }
+            );
            
         } 
         
